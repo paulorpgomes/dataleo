@@ -5,9 +5,13 @@ Crie um arquivo requirements.txt para facilitar a instalação. Crie o arquivo c
 
 
 chardet
+
 pandas
+
 pymongo
+
 openpyxl
+
 xlrd
 
 e então execute o seguinte código no terminal : pip install -r requirements.txt
