@@ -33,14 +33,17 @@ def extract_date_from_filename(filename):
     return None
 
 def process_file(file_path, gestora):
-    file_extension = os.path.splitext(file_path)[1]
+    file_extension = os.path.splitext(file_path)[1].lower()
     encoding = detect_encoding(file_path)
+
     if file_extension == '.csv':
         data = pd.read_csv(file_path, encoding=encoding)
     elif file_extension == '.json':
         data = pd.read_json(file_path, encoding=encoding)
+    elif file_extension == '.xls':
+        data = pd.read_excel(file_path, engine='xlrd')
     elif file_extension == '.xlsx':
-        data = pd.read_excel(file_path)
+        data = pd.read_excel(file_path, engine='openpyxl')
     elif file_extension == '.txt':
         data = pd.read_csv(file_path, delimiter='\t', encoding=encoding)
     else:
@@ -48,7 +51,7 @@ def process_file(file_path, gestora):
     
     filter_settings = {
         "Acadian": {"rows": (6, 12), "columns": [0, 1]},
-        "Colchester": {"rows": (4, 10), "columns": [0, 2]},
+        "Colchester": {"rows": (15, 26), "columns": [10, 11]},
         "Fundamenta": {"rows": (4, 10), "columns": [0, 2]},
         "Lord Abett": {"rows": (6, 12), "columns": [0, 1]},
         "Man": {"rows": (2, 20), "columns": [0, 1]},
